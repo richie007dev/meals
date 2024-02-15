@@ -11,26 +11,29 @@ class MealDetailsScreen extends ConsumerWidget {
   final Meal meal;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favoriteMeals = ref.watch(favoriteMealsProvider);
+    final isFavorite = favoriteMeals.contains(meal);
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () {
-                final wasFavorite = ref
-                    .read(favoriteMealsProvider.notifier)
-                    .toggleMealFavoriteStatus(meal);
-                ScaffoldMessenger.of(context).clearSnackBars();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(wasFavorite
-                        ? 'Meal marked as a favorite.'
-                        : 'Meal removed from favorite!'),
-                    backgroundColor:
-                        wasFavorite ? Colors.greenAccent : Colors.redAccent,
-                  ),
-                );
-              },
-              icon: const Icon(Icons.star))
+            onPressed: () {
+              final wasFavorite = ref
+                  .read(favoriteMealsProvider.notifier)
+                  .toggleMealFavoriteStatus(meal);
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(wasFavorite
+                      ? 'Meal marked as a favorite.'
+                      : 'Meal removed from favorite!'),
+                  backgroundColor:
+                      wasFavorite ? Colors.greenAccent : Colors.redAccent,
+                ),
+              );
+            },
+            icon: Icon(isFavorite ? Icons.star : Icons.star_border),
+          ),
         ],
         title: Text(meal.title),
       ),
