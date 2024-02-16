@@ -37,7 +37,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   Widget build(BuildContext context) {
     final availableMeals = ref.watch(filteredMealsProvider);
     Widget activeScreen = CategoriesScreen(
-      avaliableMeals: availableMeals,
+      availableMeals: availableMeals,
     );
     var screenTitle = "Categories";
     if (_selectPageIndex == 1) {
